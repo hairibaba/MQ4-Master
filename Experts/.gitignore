@@ -1,0 +1,11 @@
+# gitignore
+# Ignore everything
+*
+!.gitignore
+!_Template - EA Basic.mq4
+!AccountInfo_Rev3.mq4
+!HolyGrail_Master_Revised.mq4
+!M1_Scalping_Luqman_x2.mq4
+!ScalpingTiming_XX.mq4
+Telegram_Signal.mq4
+!Telegram_TradingActivity.mq4

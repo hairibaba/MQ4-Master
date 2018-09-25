@@ -1,0 +1,7 @@
+# gitignore
+# Ignore everything
+*
+!.gitignore
+!Telegram.mqh
+!Cammon.mqh
+!JasonTest.mqh

@@ -1,0 +1,26 @@
+# gitignore
+# Ignore everything
+*
+!.gitignore
+!_Template - Buffer_SeperateWindow.mq4
+!_Template - Buffer_Arrow.mq4
+!_Template - Buffer_Line.mq4
+!_Template - Buffer_None.mq4
+!ChartWatermark.mq4
+!Four_Pivot_Timeframe.mq4
+!HbxFib.mq4
+!HOLO.mq4
+!HOLO_fib.mq4
+!Magnified Market Price.mq4
+!NemoMA.mq4
+!RoundNumber.mq4
+!ScalpingTiming.mq4
+!ScalpRange.mq4
+!SnR_Hairi.mq4
+!SnR_MTF_Hairi.mq4
+!StopHuntingLevel.mq4
+!StopHuntingLevel_Trendline.mq4
+!SUPPORT_RESISTANT_ZONE.mq4
+!TimeToNextCandle.mq4
+!Trade_PlotterHairi.mq4
+!TradePloter.mq4

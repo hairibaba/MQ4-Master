@@ -1,0 +1,10 @@
+# gitignore
+*.ex5
+*.ex4
+/Images
+/Libraries
+/Files
+/Logs
+/Presets
+.vscode
+mql5.storage
