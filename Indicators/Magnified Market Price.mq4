@@ -47,10 +47,9 @@ int start(){
    color pnq = clrWheat;
    color base = clrWheat;
    double pnl_data = OrderProperty_OrderPL();
-   if(pnl_data==0) rou = 0;
-   else if(pnl_data>0) pnq = C'102,184,149';
+   if(pnl_data>0) pnq = C'102,184,149';
    else if(pnl_data<0) pnq = C'214,87,95';
-   string pnl = StringConcatenate("$",DoubleToString(OrderProperty_OrderPL(),rou));
+   string pnl = StringConcatenate("$",DoubleToString(OrderProperty_OrderPL(),rou)," (",CountPoint()," point)");
    string lotdis = StringConcatenate("Buy Lot: ",CurrentOrderLot(OP_BUY),"  ||  Sell Lot: ",CurrentOrderLot(OP_SELL));
    string avgp = StringConcatenate("Avg Entry: ",DoubleToString(AveragingPrice(),_Digits));
    
@@ -101,6 +100,23 @@ double AveragingPrice() {
    double totallot = CurrentOrderLot(OP_BUY)+CurrentOrderLot(OP_SELL);
    if(totallot>0) total = x/totallot;
    return NormPrice(total);
+}
+
+int CountPoint(){
+   int count = 0;
+   for(int order = OrdersTotal()-1; order >= 0; order--){
+      bool select = OrderSelect(order,SELECT_BY_POS);
+      if(select && OrderSymbol()==_Symbol && OrderType()<2) {
+         RefreshRates();
+         if(OrderType()==OP_BUY) count += PointToInt(Bid-OrderOpenPrice());
+         else if(OrderType()==OP_SELL) count += PointToInt(OrderOpenPrice()-Ask);
+      }
+   }
+   return count;
+}
+
+int PointToInt (double point) {
+   return int(point/_Point);
 }
 
 double NormDollar(double Dollar) {
