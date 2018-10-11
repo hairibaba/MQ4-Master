@@ -143,4 +143,6 @@ void displayinfo(string label,string displayitem, int x, int y, int size, color 
    ObjectSet(label, OBJPROP_CORNER, 2);
    ObjectSet(label, OBJPROP_XDISTANCE, x);
    ObjectSet(label, OBJPROP_YDISTANCE, y);
+   ObjectSetInteger(0,label,OBJPROP_HIDDEN,true);
+   SetIndexLabel(0,NULL);
 }

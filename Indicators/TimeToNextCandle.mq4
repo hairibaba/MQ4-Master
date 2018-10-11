@@ -9,6 +9,7 @@
 #property strict
 #property indicator_chart_window
 
+
 input string LabelFont = "Arial";
 input int LabelSize = 15;
 input color LabelColor = clrDarkSlateGray;
@@ -59,6 +60,8 @@ void CalcTime(void)
       ObjectSetInteger(0, LabelName, OBJPROP_CORNER, CORNER_RIGHT_LOWER);
       ObjectSetInteger(0, LabelName, OBJPROP_XDISTANCE, LabelDistance);
       ObjectSetInteger(0, LabelName, OBJPROP_YDISTANCE, LabelDistance);
+      ObjectSetInteger(0, LabelName, OBJPROP_HIDDEN,true);
+      SetIndexLabel(0,NULL);
    }
 
 // calculating remaining time to next candle

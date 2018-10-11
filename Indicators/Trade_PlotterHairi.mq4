@@ -52,18 +52,19 @@ int start()
                 
       if(OrderType()==OP_BUY || OrderType()==OP_SELL)
          {
-            ObjectCreate("# "+OrderTicket()+" : Open at "+TimeToStr(OrderOpenTime(),TIME_MINUTES),OBJ_ARROW,0,OrderOpenTime(),OrderOpenPrice());
-            ObjectSet("# "+OrderTicket()+" : Open at "+TimeToStr(OrderOpenTime(),TIME_MINUTES),6, col);
-            ObjectSet("# "+OrderTicket()+" : Open at "+TimeToStr(OrderOpenTime(),TIME_MINUTES),14,1);
+            ObjectCreate("# "+IntegerToString(OrderTicket())+" : Open at "+TimeToStr(OrderOpenTime(),TIME_MINUTES),OBJ_ARROW,0,OrderOpenTime(),OrderOpenPrice());
+            ObjectSet("# "+IntegerToString(OrderTicket())+" : Open at "+TimeToStr(OrderOpenTime(),TIME_MINUTES),6, col);
+            ObjectSet("# "+IntegerToString(OrderTicket())+" : Open at "+TimeToStr(OrderOpenTime(),TIME_MINUTES),14,1);
                 
-            ObjectCreate("# "+OrderTicket()+" : Close at "+TimeToStr(OrderCloseTime(),TIME_MINUTES),OBJ_ARROW,0,OrderCloseTime(),OrderClosePrice());
-            ObjectSet("# "+OrderTicket()+" : Close at "+TimeToStr(OrderCloseTime(),TIME_MINUTES),6, ccol);
-            ObjectSet("# "+OrderTicket()+" : Close at "+TimeToStr(OrderCloseTime(),TIME_MINUTES),14,3);
+            ObjectCreate("# "+IntegerToString(OrderTicket())+" : Close at "+TimeToStr(OrderCloseTime(),TIME_MINUTES),OBJ_ARROW,0,OrderCloseTime(),OrderClosePrice());
+            ObjectSet("# "+IntegerToString(OrderTicket())+" : Close at "+TimeToStr(OrderCloseTime(),TIME_MINUTES),6, ccol);
+            ObjectSet("# "+IntegerToString(OrderTicket())+" : Close at "+TimeToStr(OrderCloseTime(),TIME_MINUTES),14,3);
               
-            ObjectCreate("# "+OrderTicket()+" : "+PL, OBJ_TREND, 0, OrderOpenTime(),OrderOpenPrice(),OrderCloseTime(),OrderClosePrice());
-            ObjectSet("# "+OrderTicket()+" : "+PL,6,linecol);
-            ObjectSet("# "+OrderTicket()+" : "+PL,7,2);
-            ObjectSet("# "+OrderTicket()+" : "+PL,10,false);
+            ObjectCreate("# "+IntegerToString(OrderTicket())+" : "+PL, OBJ_TREND, 0, OrderOpenTime(),OrderOpenPrice(),OrderCloseTime(),OrderClosePrice());
+            ObjectSet("# "+IntegerToString(OrderTicket())+" : "+PL,6,linecol);
+            ObjectSet("# "+IntegerToString(OrderTicket())+" : "+PL,7,2);
+            ObjectSet("# "+IntegerToString(OrderTicket())+" : "+PL,10,false);
+            ObjectSetInteger(0,"# "+IntegerToString(OrderTicket())+" : "+PL,OBJPROP_HIDDEN,true);
          }
       }            
    }
@@ -72,7 +73,7 @@ int start()
    //Plot current orders
    for(cnt=0;cnt<=total;cnt++)
    {
-      OrderSelect(cnt, SELECT_BY_POS, MODE_TRADES);
+      bool x = OrderSelect(cnt, SELECT_BY_POS, MODE_TRADES);
       
       if(OrderSymbol()==Symbol() )   // check for symbol
       {
@@ -81,9 +82,10 @@ int start()
          
          if(OrderType()==OP_BUY ||OrderType()==OP_SELL)
          {
-            ObjectCreate("# "+OrderTicket()+" : Open at "+TimeToStr(OrderOpenTime(),TIME_MINUTES),OBJ_ARROW,0,OrderOpenTime(),OrderOpenPrice());
-            ObjectSet("# "+OrderTicket()+" : Open at "+TimeToStr(OrderOpenTime(),TIME_MINUTES),6, col);
-            ObjectSet("# "+OrderTicket()+" : Open at "+TimeToStr(OrderOpenTime(),TIME_MINUTES),14,1);
+            ObjectCreate("# "+IntegerToString(OrderTicket())+" : Open at "+TimeToStr(OrderOpenTime(),TIME_MINUTES),OBJ_ARROW,0,OrderOpenTime(),OrderOpenPrice());
+            ObjectSet("# "+IntegerToString(OrderTicket())+" : Open at "+TimeToStr(OrderOpenTime(),TIME_MINUTES),6, col);
+            ObjectSet("# "+IntegerToString(OrderTicket())+" : Open at "+TimeToStr(OrderOpenTime(),TIME_MINUTES),14,1);
+            ObjectSetInteger(0,"# "+IntegerToString(OrderTicket())+" : Open at "+TimeToStr(OrderOpenTime(),TIME_MINUTES),OBJPROP_HIDDEN,true);
          }
       }            
    }
