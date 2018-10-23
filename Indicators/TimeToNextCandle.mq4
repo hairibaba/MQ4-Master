@@ -9,24 +9,21 @@
 #property strict
 #property indicator_chart_window
 
+input string   LabelFont      = "Arial";
+input int      LabelSize      = 15,
+               LabelDistance  = 15;
+input color    LabelColor     = C'102,184,149';
+const string   LabelName      = "TimeToNextCandle";
 
-input string LabelFont = "Arial";
-input int LabelSize = 15;
-input color LabelColor = clrDarkSlateGray;
-input int LabelDistance = 15;
-const string LabelName = "TimeToNextCandle";
-
-int OnInit()
-  {
+int OnInit() {
    EventSetTimer(1);
    return(INIT_SUCCEEDED);
-  }
+}
 
-void OnDeinit(const int reason)
-  {
+void OnDeinit(const int reason) {
    EventKillTimer();
    ObjectDelete(0, LabelName);
-  }
+}
 
 int OnCalculate(const int rates_total,
                 const int prev_calculated,
@@ -37,21 +34,17 @@ int OnCalculate(const int rates_total,
                 const double &close[],
                 const long &tick_volume[],
                 const long &volume[],
-                const int &spread[])
-  {
+                const int &spread[]){
    CalcTime();
    return(rates_total);
-  }
+}
 
-void OnTimer()
-  {
+void OnTimer() {
    CalcTime();
-  }
+}
 
-void CalcTime(void)
-  {
-   if (ObjectFind(LabelName) == -1)
-   {
+void CalcTime() {
+   if (ObjectFind(LabelName) == -1) {
       ObjectCreate(0, LabelName, OBJ_LABEL, 0, 0, 0);
       ObjectSetString(0, LabelName, OBJPROP_FONT, LabelFont);
       ObjectSetInteger(0, LabelName, OBJPROP_FONTSIZE, LabelDistance);
@@ -69,15 +62,12 @@ void CalcTime(void)
 
 // assembling the output string depending on current period on the chart
    string Out = StringFormat("%.2d", TimeSeconds(TimeTo));
-   if (TimeTo >= 3600)
-   {
+   if(TimeTo >= 3600) {
       Out = StringFormat("%.2d:%s", TimeMinute(TimeTo), Out);
-      if (TimeTo >= 86400)
-        Out = StringFormat("%d day(s) %.2d:%s", int(TimeTo / 86400), TimeHour(TimeTo), Out);
-      else
-        Out = StringFormat("%d:%s", TimeHour(TimeTo), Out);
+      if (TimeTo >= 86400) Out = StringFormat("%d day(s) %.2d:%s", int(TimeTo / 86400), TimeHour(TimeTo), Out);
+      else Out = StringFormat("%d:%s", TimeHour(TimeTo), Out);
    }
-   else
-     Out = StringFormat("%d:%s", TimeMinute(TimeTo), Out);
+   else Out = StringFormat("%d:%s", TimeMinute(TimeTo), Out);
+   
    ObjectSetString(0, LabelName, OBJPROP_TEXT, StringFormat("%s (%.0f%s)", Out, 100.0 / PeriodSeconds() * TimeTo, "%"));
-  }
+}

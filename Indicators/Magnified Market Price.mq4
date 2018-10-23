@@ -102,6 +102,46 @@ double AveragingPrice() {
    return NormPrice(total);
 }
 
+double AveragingPrice(int type, double& lot) {
+   double x = 0;
+   double total = 0;
+   lot = 0;
+   for(int order = 0; order < OrdersTotal(); order++){
+      bool select = OrderSelect(order,SELECT_BY_POS);   
+      if(select && OrderSymbol()==_Symbol && OrderType()==type) {
+         lot += OrderLots();
+         x += OrderOpenPrice()*OrderLots();
+      }
+   }
+   
+   double totallot = CurrentOrderLot(type);
+   if(totallot>0) total = x/totallot;
+   return NormPrice(total);
+}
+
+double AverageEntry() {
+   double x = 0;
+   double lotbuy,lotsell;
+   double buy  = AveragingPrice(OP_BUY,lotbuy);
+   double sell = AveragingPrice(OP_SELL,lotsell);
+   
+   MqlTick tick;
+   SymbolInfoTick(_Symbol,tick);
+   
+   if(lotbuy>0 && lotsell>0) {
+      bool samelot = DoubleToString(lotbuy,2)==DoubleToString(lotsell,2);
+      if(buy<=sell) x = NormPrice((buy+sell)/2);
+      else if(buy>sell) {
+         if(lotbuy>lotsell) {}
+         else if(lotbuy<lotsell) {}
+      }
+   }
+   else if(lotbuy>0) x = buy;
+   else if(lotsell>0) x = sell;
+   
+   return x;
+}
+
 int CountPoint(){
    int count = 0;
    for(int order = OrdersTotal()-1; order >= 0; order--){
