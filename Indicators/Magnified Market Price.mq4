@@ -119,6 +119,41 @@ double AveragingPrice(int type, double& lot) {
    return NormPrice(total);
 }
 
+double AverageEntry2() {
+   double x = 0;
+   double lotbuy,lotsell;
+   double buy  = AveragingPrice(OP_BUY,lotbuy);
+   double sell = AveragingPrice(OP_SELL,lotsell);
+   double pnl  = OrderProperty_OrderPL();
+   double dist = pnl*SymbolInfoDouble(_Symbol,SYMBOL_TRADE_TICK_SIZE);
+   MqlTick tick;
+   SymbolInfoTick(_Symbol,tick);
+   
+   if(lotbuy>0 && lotsell>0) {
+      bool samelot = DoubleToString(lotbuy,2)==DoubleToString(lotsell,2);
+      if(samelot) x = NormPrice((buy+sell)/2);
+      else {
+         if(lotbuy>lotsell) {
+            if(pnl<0) x = tick.bid+dist;
+            else if(pnl>=0) x = tick.bid-dist;
+         }
+         else if(lotbuy<lotsell) {
+            if(pnl<0) x = tick.ask-dist;
+            else if(pnl>=0) x = tick.ask+dist;
+         }
+      }
+   }
+   else if(lotbuy>0) {
+      if(pnl<0) x = tick.bid+dist;
+      else if(pnl>=0) x = tick.bid-dist;
+   }
+   else if(lotsell>0) {
+      if(pnl<0) x = tick.ask-dist;
+      else if(pnl>=0) x = tick.ask+dist;
+   }
+   return x;
+}
+
 double AverageEntry() {
    double x = 0;
    double lotbuy,lotsell;
