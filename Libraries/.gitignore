@@ -1,0 +1,6 @@
+# gitignore
+# Ignore everything
+*
+!.gitignore
+!stdlib - Backup.mq4
+
